@@ -6,6 +6,7 @@ import com.bookstore.bookstore.enums.BookStatus;
 import com.bookstore.bookstore.exception.EmptyFieldException;
 import com.bookstore.bookstore.exception.NotFoundExceptionHandler;
 import com.bookstore.bookstore.model.ApiResponseModel;
+import com.bookstore.bookstore.model.BooksPaginationModel;
 import com.bookstore.bookstore.repository.AuthorRepository;
 import com.bookstore.bookstore.repository.BookRepository;
 import com.bookstore.bookstore.request.CreateBookRequest;
@@ -14,6 +15,10 @@ import com.bookstore.bookstore.util.FormControl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -31,11 +36,20 @@ public class BookService {
     @Autowired
     private MessageSource messageSource;
 
-    public ApiResponseModel<List<BookResponse>> books() {
-        List<Book> bookList = repository.findAllByStatus();
-        if (!bookList.isEmpty()) {
-            List<BookResponse> result = bookList.stream().map(BookResponse::new).collect(Collectors.toList());
-            return ApiResponseModel.create(result, "", true);
+    public ApiResponseModel<BooksPaginationModel> books(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Order.desc("createdAt")));
+        Page<Book> pages = repository.findAll(pageable);
+        //List<Book> bookList = repository.findAllByStatus();
+        List<Book> listOfBooks = pages.getContent();
+        List<BookResponse> content = listOfBooks.stream().map(BookResponse::new).collect(Collectors.toList());
+        if (!listOfBooks.isEmpty()) {
+            BooksPaginationModel model = new BooksPaginationModel();
+            model.setBooks(content);
+            model.setPageNo(pages.getNumber());
+            model.setPageSize(pages.getSize());
+            model.setTotalElement(pages.getTotalElements());
+            model.setLastPage(pages.isLast());
+            return ApiResponseModel.create(model, "", true);
         }
         return ApiResponseModel.create(message("error.basic"), false);
     }

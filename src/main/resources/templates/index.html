@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bookstore</title>
+    <link rel="icon" href="http://example.com/favicon.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+
+<body>
+<div class="container-md mt-5">
+
+    <h1 id="bookstore">Bookstore</h1>
+    <h2 id="features">Features</h2>
+    <p>Design and implement a RESTful API for an online bookstore using Java and Spring Boot. This API should
+        provide essential functionality for both the user and the bookstore admin.</p>
+    <h2 id="tech">Tech</h2>
+    <ul>
+        <li>Java 17</li>
+        <li>Spring Boot</li>
+        <li>JWT Token</li>
+        <li>Postgresql</li>
+        <li>Spring Security</li>
+    </ul>
+    <h2 id="api-document">API Document</h2>
+    <p><a
+            href="https://documenter.getpostman.com/view/29991894/2s9YJW5kZM">https://documenter.getpostman.com/view/29991894/2s9YJW5kZM</a>
+    </p>
+    <p>After the application starts running, a default ADMIN user is created, and this information is logged.</p>
+    <pre><code>Admin <span class="hljs-built_in">Token</span> : Bearer &lt;<span class="hljs-built_in">token</span>&gt;
+</code></pre>
+    <p>Endpoints:</p>
+    <pre>
+/users/** -> Users with any role
+/books (GET) -> Users with any role
+/books (PUT, UPDATE, DELETE) -> Requires an ADMIN token
+/author/** -> Requires an ADMIN token
+/orders/** -> Requires a USER/ADMIN token
+</pre>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

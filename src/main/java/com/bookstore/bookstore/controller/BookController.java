@@ -2,6 +2,7 @@ package com.bookstore.bookstore.controller;
 
 import com.bookstore.bookstore.entitiy.Book;
 import com.bookstore.bookstore.model.ApiResponseModel;
+import com.bookstore.bookstore.model.BooksPaginationModel;
 import com.bookstore.bookstore.request.CreateBookRequest;
 import com.bookstore.bookstore.response.BookResponse;
 import com.bookstore.bookstore.service.BookService;
@@ -19,8 +20,9 @@ public class BookController {
     private BookService service;
 
     @GetMapping
-    public ApiResponseModel<List<BookResponse>> books() {
-        return service.books();
+    public ApiResponseModel<BooksPaginationModel> books(@RequestParam(value = "page_no", defaultValue = "0", required = false) int pageNo,
+                                                              @RequestParam(value = "page_size", defaultValue = "8", required = false) int size) {
+        return service.books(pageNo, size);
     }
 
     @GetMapping("/{isbn}")

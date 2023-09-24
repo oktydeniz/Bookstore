@@ -14,7 +14,7 @@ public class HomeController {
     MessageSource messageSource;
 
     @GetMapping("/")
-    public ResponseEntity<Object> home() {
-        return new ResponseEntity<Object>(messageSource.getMessage("index.msg", null, LocaleContextHolder.getLocale()), HttpStatus.OK);
+    public String home() {
+        return "index";
     }
 }

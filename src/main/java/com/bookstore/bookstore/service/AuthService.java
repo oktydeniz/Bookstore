@@ -67,7 +67,7 @@ public class AuthService {
         Authentication authentication = authenticationManager.authenticate(authenticationToken);
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String bearer = "Bearer " + tokenManager.generateToken(authentication);
-        authResponse.setMessage("auth.register.success");
+        authResponse.setMessage(message("auth.register.success"));
         authResponse.setUserId(user.getId());
         authResponse.setAccessToken(bearer);
         return new ResponseEntity<>(authResponse, HttpStatus.CREATED);
