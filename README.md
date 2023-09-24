@@ -21,9 +21,10 @@ After the application starts running, a default ADMIN user is created, and this 
 	Admin Token : Bearer <token>
 
 Endpoints:
-
+<pre>
 /users/** -> Users with any role
 /books (GET) -> Users with any role
 /books (PUT, UPDATE, DELETE) -> Requires an ADMIN token
 /author/** -> Requires an ADMIN token
 /orders/** -> Requires a USER/ADMIN token
+</pre>
